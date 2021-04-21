@@ -34,3 +34,15 @@ MyArray.prototype.map = function (callback) {
 
   return res;
 };
+
+MyArray.prototype.filter = function (callback) {
+  let res = new MyArray();
+
+  for (let i = 0; i < this.length; i++) {
+    if (callback(this[i], i, this)) {
+      res[res.length] = this[i];
+    }
+  }
+
+  return res;
+};
