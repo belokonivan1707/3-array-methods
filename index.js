@@ -46,3 +46,12 @@ MyArray.prototype.filter = function (callback) {
 
   return res;
 };
+
+MyArray.prototype.toString = function () {
+  let str = "";
+
+  for (let i = 0; i < this.length; i++) {
+    i === this.length - 1 ? (str += `${this[i]}`) : (str += `${this[i]},`);
+  }
+  return str;
+};
