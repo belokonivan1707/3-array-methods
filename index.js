@@ -24,3 +24,13 @@ MyArray.prototype.forEach = function (callback) {
     callback(this[i], i, this);
   }
 };
+
+MyArray.prototype.map = function (callback) {
+  let res = new MyArray();
+
+  for (let i = 0; i < this.length; i++) {
+    res[i] = callback(this[i], i, this);
+  }
+
+  return res;
+};
