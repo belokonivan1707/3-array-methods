@@ -55,3 +55,13 @@ MyArray.prototype.toString = function () {
   }
   return str;
 };
+
+MyArray.prototype.pop = function () {
+  let popElement = new MyArray();
+
+  popElement = this[this.length - 1];
+
+  delete this[this.length - 1];
+
+  return popElement;
+};
