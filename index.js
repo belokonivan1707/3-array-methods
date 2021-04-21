@@ -39,6 +39,7 @@ MyArray.prototype.filter = function (callback) {
   let res = new MyArray();
 
   for (let i = 0; i < this.length; i++) {
+    console.log(this[i], i, this);
     if (callback(this[i], i, this)) {
       res[res.length] = this[i];
     }
@@ -64,4 +65,18 @@ MyArray.prototype.pop = function () {
   delete this[this.length - 1];
 
   return popElement;
+};
+
+MyArray.prototype.reduce = function (callback, initialValue) {
+  let accumulator = initialValue;
+
+  if (initialValue === undefined) {
+    accumulator = this[0];
+  }
+
+  for (let i = 0; i < this.length; i++) {
+    accumulator = callback(accumulator, this[i], i, this);
+  }
+
+  return accumulator;
 };
