@@ -9,3 +9,12 @@ function MyArray(...arg) {
     },
   });
 }
+
+MyArray.prototype.push = function (...arg) {
+  if (arg) {
+    for (let i = 0; i < arg.length; i++) {
+      this[this.length] = arg[i];
+    }
+    return this.length;
+  }
+};
