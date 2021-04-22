@@ -89,3 +89,29 @@ MyArray.prototype.reduce = function (callback, initialValue) {
 
   return accumulator;
 };
+
+MyArray.prototype.sort = function (callback) {
+  if (callback) {
+    for (let i = 0; i < this.length - 1; i++) {
+      for (let j = 0; j < this.length - 1; j++) {
+        if (callback(this[j], this[j + 1]) > 0) {
+          /// второй объект меньше чем первый
+          let temp = this[j];
+          this[j] = this[j + 1];
+          this[j + 1] = temp;
+        }
+      }
+    }
+  } else {
+    for (let i = 0; i < this.length - 1; i++) {
+      let min = i;
+      for (let j = i + 1; j < this.length; j++) {
+        if (String(this[j]) < String(this[min])) min = j;
+      }
+      let t = this[min];
+      this[min] = this[i];
+      this[i] = t;
+    }
+  }
+  return this;
+};
