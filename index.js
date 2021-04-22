@@ -1,6 +1,8 @@
-function MyArray(...arg) {
-  for (let i = 0; i < arg.length; i++) {
-    this[i] = arg[i];
+function MyArray(...args) {
+  for (let i = 0; i < args.length; i++) {
+    if (args[i] != undefined) {
+      this[i] = args[i];
+    }
   }
 
   Object.defineProperty(this, "length", {
@@ -10,37 +12,45 @@ function MyArray(...arg) {
   });
 }
 
-MyArray.prototype.push = function (...arg) {
-  if (arg) {
-    for (let i = 0; i < arg.length; i++) {
-      this[this.length] = arg[i];
+MyArray.prototype.push = function (...args) {
+  if (args) {
+    for (let i = 0; i < args.length; i++) {
+      this[this.length] = args[i];
     }
     return this.length;
   }
 };
 
-MyArray.prototype.forEach = function (callback) {
+MyArray.prototype.forEach = function (callback, thisArg) {
+  if (typeof callback !== "function")
+    throw new Error(`${callback} is not a function`);
+
   for (let i = 0; i < this.length; i++) {
-    callback(this[i], i, this);
+    callback.call(thisArg, this[i], i, this);
   }
+
+  return undefined;
 };
 
-MyArray.prototype.map = function (callback) {
-  let res = new MyArray();
+MyArray.prototype.map = function (callback, thisArg) {
+  if (typeof callback !== "function")
+    throw new Error(`${callback} is not a function`);
+  const res = new MyArray();
 
   for (let i = 0; i < this.length; i++) {
-    res[i] = callback(this[i], i, this);
+    res[i] = callback.call(thisArg, this[i], i, this);
   }
 
   return res;
 };
 
-MyArray.prototype.filter = function (callback) {
+MyArray.prototype.filter = function (callback, thisArg) {
+  if (typeof callback !== "function")
+    throw new Error(`${callback} is not a function`);
   let res = new MyArray();
 
   for (let i = 0; i < this.length; i++) {
-    console.log(this[i], i, this);
-    if (callback(this[i], i, this)) {
+    if (callback.call(thisArg, this[i], i, this)) {
       res[res.length] = this[i];
     }
   }
@@ -52,30 +62,29 @@ MyArray.prototype.toString = function () {
   let str = "";
 
   for (let i = 0; i < this.length; i++) {
-    i === this.length - 1 ? (str += `${this[i]}`) : (str += `${this[i]},`);
+    str += this[i] + ",";
   }
-  return str;
+  return str.slice(0, str.length - 1);
 };
 
 MyArray.prototype.pop = function () {
-  let popElement = new MyArray();
-
-  popElement = this[this.length - 1];
+  let lastItem = this[this.length - 1];
 
   delete this[this.length - 1];
 
-  return popElement;
+  return lastItem;
 };
 
 MyArray.prototype.reduce = function (callback, initialValue) {
-  let accumulator = initialValue;
+  let accumulator = initialValue || this[0];
 
-  if (initialValue === undefined) {
-    accumulator = this[0];
-  }
+  let index = initialValue === undefined ? 1 : 0;
 
-  for (let i = 0; i < this.length; i++) {
-    accumulator = callback(accumulator, this[i], i, this);
+  if (typeof callback !== "function")
+    throw new Error(`${callback} is not a function`);
+
+  for (; index < this.length; index++) {
+    accumulator = callback(accumulator, this[index], index, this);
   }
 
   return accumulator;
