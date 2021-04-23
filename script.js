@@ -106,7 +106,7 @@ MyArray.prototype.sort = function (callback) {
     for (let i = 0; i < this.length - 1; i++) {
       let min = i;
       for (let j = i + 1; j < this.length; j++) {
-        if (String(this[j]) < String(this[min])) min = j; // воспринимайте этот объект как строку
+        if (String(this[j]) < String(this[min])) min = j; // данных, воспринимайте этот объект как строку
       }
       let t = this[min];
       this[min] = this[i];
