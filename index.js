@@ -17,8 +17,8 @@ MyArray.prototype.push = function (...args) {
     for (let i = 0; i < args.length; i++) {
       this[this.length] = args[i];
     }
-    return this.length;
   }
+  return this.length;
 };
 
 MyArray.prototype.forEach = function (callback, thisArg) {
@@ -35,6 +35,7 @@ MyArray.prototype.forEach = function (callback, thisArg) {
 MyArray.prototype.map = function (callback, thisArg) {
   if (typeof callback !== "function")
     throw new Error(`${callback} is not a function`);
+
   const res = new MyArray();
 
   for (let i = 0; i < this.length; i++) {
@@ -64,6 +65,7 @@ MyArray.prototype.toString = function () {
   for (let i = 0; i < this.length; i++) {
     str += this[i] + ",";
   }
+
   return str.slice(0, str.length - 1);
 };
 
@@ -78,7 +80,7 @@ MyArray.prototype.pop = function () {
 MyArray.prototype.reduce = function (callback, initialValue) {
   let accumulator = initialValue || this[0];
 
-  let index = initialValue === undefined ? 1 : 0;
+  let index = initialValue === undefined ? 1 : 0; //*
 
   if (typeof callback !== "function")
     throw new Error(`${callback} is not a function`);
@@ -119,6 +121,7 @@ MyArray.prototype.sort = function (callback) {
 MyArray.prototype.from = function (array, callback, thisArg) {
   const newArray = new MyArray();
   let i = 0;
+
   if (typeof array[Symbol.iterator]) {
     for (let value of array) {
       if (callback) {
