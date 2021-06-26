@@ -1,7 +1,7 @@
 function MyArray(...args) {
   for (let i = 0; i < args.length; i++) {
     if (args[i] != undefined) {
-      this[i] = args[i];
+      this[i] = args[i]; // check, when we IN TO cycle FOR, this states/indicate to condition cycle
     }
   }
 
@@ -97,7 +97,6 @@ MyArray.prototype.sort = function (callback) {
     for (let i = 0; i < this.length; i++) {
       for (let j = 0; j < this.length; j++) {
         if (callback(this[j], this[j + 1]) > 0) {
-          /// второй объект меньше чем первыйs
           let temp = this[j];
           this[j] = this[j + 1];
           this[j + 1] = temp;
