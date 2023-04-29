@@ -1,1 +1,1 @@
-Function constructor MyArray, which has in prototype most popular array methods, wrote without using true array methods. 
+Function constructor MyArray, which has in prototype most popular array methods, written without using array methods. 
