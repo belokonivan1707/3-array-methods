@@ -1,7 +1,7 @@
 function MyArray(...args) {
   for (let i = 0; i < args.length; i++) {
     if (args[i] != undefined) {
-      this[i] = args[i]; // check, when we IN TO cycle FOR, this states/indicate to condition cycle
+      this[i] = args[i];
     }
   }
 
@@ -107,7 +107,7 @@ MyArray.prototype.sort = function (callback) {
     for (let i = 0; i < this.length - 1; i++) {
       let min = i;
       for (let j = i + 1; j < this.length; j++) {
-        if (String(this[j]) < String(this[min])) min = j; // воспринимайте этот объект как строку
+        if (String(this[j]) < String(this[min])) min = j;
       }
       let t = this[min];
       this[min] = this[i];
